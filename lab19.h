@@ -3,6 +3,7 @@
 #include<ctime>
 #include<cstdlib>
 #include<iomanip>
+#include<cmath>
 
 using namespace std;
 
@@ -62,7 +63,9 @@ void Unit::showStatus(){
 void Unit::newTurn(){
 	guard_on = false;
 }
-
+int Unit::attack(Unit &target){	
+		target.beAttacked(atk);
+}
 //Write Function Member attack(), beAttacked(), heal(), guard() and isDead() here
 //
 //
@@ -70,7 +73,43 @@ void Unit::newTurn(){
 //
 //
 //
+int Unit::beAttacked(int atk){
+	int dmg=atk-def;
+	if(guard_on==true){
+		dmg=dmg/3;
 
+		hp=hp-dmg;
+
+		return dmg;
+	}else{
+		hp=hp-dmg;
+
+		return dmg;
+	}
+	
+
+}
+
+int Unit::heal(){
+	int h=10+rand()%(30-10);
+	hp=hp+h;
+	if(hp>hpmax){
+		hp=hpmax;
+	}
+	return h;
+}
+void Unit::guard(){
+	guard_on = true;
+}
+bool Unit::isDead(){
+	if(type=="Hero"){
+		if(hp<=0){
+			return true;
+		}else if(hp>0){
+			return false;
+		}
+	}
+}
 void drawScene(char p_action,int p,char m_action,int m){
 	cout << "                                                       \n";
 	if(p_action == 'A'){
